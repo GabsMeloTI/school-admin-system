@@ -1,5 +1,9 @@
 package com.system.school.domain;
 
+import com.system.school.dto.aluno.AlterarAlunoDto;
+import com.system.school.dto.aluno.ListagemAlunoDto;
+import com.system.school.dto.curso.AlterarCursoDto;
+import com.system.school.dto.curso.ListagemCursoDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -41,4 +45,18 @@ public class Aluno {
     @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL)
     private List<Contato> telefones;
 
+    public Aluno(ListagemAlunoDto dto) {
+        this.nome = dto.nome();
+        this.nascimento = dto.nascimento();
+        this.foto = dto.foto();
+    }
+
+    public void alterar(AlterarAlunoDto dto) {
+        if(nome != null) {
+            this.nome = dto.nome();
+        }
+        if(foto != null) {
+            this.foto = dto.foto();
+        }
+    }
 }

@@ -1,5 +1,9 @@
 package com.system.school.domain;
 
+import com.system.school.dto.curso.AlterarCursoDto;
+import com.system.school.dto.curso.ListagemCursoDto;
+import com.system.school.dto.endereco.AlterarEnderecoDto;
+import com.system.school.dto.endereco.ListagemEnderecoDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,7 +30,21 @@ public class Curso {
     @Column(name = "ds_curso", nullable = false, length = 250)
     private String descricao;
 
-
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
     private List<Aluno> alunos;
+
+    public Curso(ListagemCursoDto dto) {
+        this.nome = dto.nome();
+        this.descricao = dto.descricao();
+    }
+
+
+    public void alterar(AlterarCursoDto dto) {
+        if(nome != null) {
+            this.nome = dto.nome();
+        }
+        if(descricao != null) {
+            this.descricao = dto.descricao();
+        }
+    }
 }

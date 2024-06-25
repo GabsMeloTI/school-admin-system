@@ -1,4 +1,8 @@
 package com.system.school.domain;
+import com.system.school.dto.aluno.AlterarAlunoDto;
+import com.system.school.dto.aluno.ListagemAlunoDto;
+import com.system.school.dto.contato.AlterarContatoDto;
+import com.system.school.dto.contato.ListagemContatoDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,5 +33,23 @@ public class Contato {
     @ManyToOne
     @JoinColumn(name = "cd_aluno", nullable = false)
     private Aluno aluno;
+
+    public Contato(ListagemContatoDto dto) {
+        this.telefone = dto.telefone();
+        this.email = dto.email();
+        this.tipo = dto.tipo();
+    }
+
+    public void alterar(AlterarContatoDto dto) {
+        if(telefone != null) {
+            this.telefone = dto.telefone();
+        }
+        if(email != null) {
+            this.email = dto.email();
+        }
+        if(tipo != null) {
+            this.tipo = dto.tipo();
+        }
+    }
 }
 
