@@ -2,6 +2,7 @@ package com.system.school.domain;
 import com.system.school.dto.aluno.AlterarAlunoDto;
 import com.system.school.dto.aluno.ListagemAlunoDto;
 import com.system.school.dto.contato.AlterarContatoDto;
+import com.system.school.dto.contato.CadastroContatoDto;
 import com.system.school.dto.contato.ListagemContatoDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -35,6 +36,12 @@ public class Contato {
     private Aluno aluno;
 
     public Contato(ListagemContatoDto dto) {
+        this.telefone = dto.telefone();
+        this.email = dto.email();
+        this.tipo = dto.tipo();
+    }
+
+    public Contato(CadastroContatoDto dto) {
         this.telefone = dto.telefone();
         this.email = dto.email();
         this.tipo = dto.tipo();

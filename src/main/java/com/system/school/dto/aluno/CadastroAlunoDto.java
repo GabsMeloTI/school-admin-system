@@ -7,5 +7,5 @@ import com.system.school.dto.endereco.ListagemEnderecoDto;
 import java.time.LocalDate;
 import java.util.List;
 
-public record CadastroAlunoDto(String nome, LocalDate nascimento, String foto, Integer cursoId, Integer enderecoId, Integer telefoneId) {
+public record CadastroAlunoDto(String nome, LocalDate nascimento, String foto, ListagemCursoDto cursoId, ListagemEnderecoDto enderecoId, ListagemContatoDto telefoneId) {
 }

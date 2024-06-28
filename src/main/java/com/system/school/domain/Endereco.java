@@ -1,6 +1,7 @@
 package com.system.school.domain;
 
 import com.system.school.dto.endereco.AlterarEnderecoDto;
+import com.system.school.dto.endereco.CadastroEnderecoDto;
 import com.system.school.dto.endereco.ListagemEnderecoDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -45,6 +46,16 @@ public class Endereco {
 
     @OneToMany(mappedBy = "endereco", cascade = CascadeType.ALL)
     private List<Aluno> alunos;
+
+    public Endereco(CadastroEnderecoDto dto) {
+        this.rua = dto.rua();
+        this.numero = dto.numero();
+        this.complemento = dto.complemento();
+        this.bairro = dto.bairro();
+        this.cidade = dto.cidade();
+        this.estado = dto.estado();
+        this.cep = dto.cep();
+    }
 
     public Endereco(ListagemEnderecoDto dto) {
         this.rua = dto.rua();

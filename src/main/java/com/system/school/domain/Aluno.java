@@ -1,6 +1,7 @@
 package com.system.school.domain;
 
 import com.system.school.dto.aluno.AlterarAlunoDto;
+import com.system.school.dto.aluno.CadastroAlunoDto;
 import com.system.school.dto.aluno.ListagemAlunoDto;
 import com.system.school.dto.curso.AlterarCursoDto;
 import com.system.school.dto.curso.ListagemCursoDto;
@@ -45,10 +46,12 @@ public class Aluno {
     @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL)
     private List<Contato> telefones;
 
-    public Aluno(ListagemAlunoDto dto) {
+    public Aluno(CadastroAlunoDto dto) {
         this.nome = dto.nome();
         this.nascimento = dto.nascimento();
         this.foto = dto.foto();
+        this.endereco = new Endereco(dto.enderecoId());
+        this.curso = new Curso(dto.cursoId());
     }
 
     public void alterar(AlterarAlunoDto dto) {

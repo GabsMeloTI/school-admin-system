@@ -1,8 +1,10 @@
 package com.system.school.domain;
 
 import com.system.school.dto.curso.AlterarCursoDto;
+import com.system.school.dto.curso.CadastroCursoDto;
 import com.system.school.dto.curso.ListagemCursoDto;
 import com.system.school.dto.endereco.AlterarEnderecoDto;
+import com.system.school.dto.endereco.CadastroEnderecoDto;
 import com.system.school.dto.endereco.ListagemEnderecoDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,6 +36,11 @@ public class Curso {
     private List<Aluno> alunos;
 
     public Curso(ListagemCursoDto dto) {
+        this.nome = dto.nome();
+        this.descricao = dto.descricao();
+    }
+
+    public Curso(CadastroCursoDto dto) {
         this.nome = dto.nome();
         this.descricao = dto.descricao();
     }
