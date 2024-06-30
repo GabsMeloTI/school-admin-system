@@ -45,6 +45,7 @@ public class Contato {
         this.telefone = dto.telefone();
         this.email = dto.email();
         this.tipo = dto.tipo();
+        this.aluno = new Aluno();
     }
 
     public void alterar(AlterarContatoDto dto) {
