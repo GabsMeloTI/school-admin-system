@@ -1,6 +1,7 @@
 package com.system.school.controller;
 
 import com.system.school.domain.Curso;
+import com.system.school.dto.curso.AlterarCursoDto;
 import com.system.school.dto.curso.CadastroCursoDto;
 import com.system.school.dto.curso.ListagemCursoDto;
 import com.system.school.repository.CursoRepository;
@@ -35,6 +36,19 @@ public class CursoController {
         return ResponseEntity.created(url).body(new ListagemCursoDto(curso));
     }
 
+    @PutMapping("{codigo}")
+    @Transactional
+    public ResponseEntity<ListagemCursoDto> alterar(@PathVariable("codigo") Integer codigo, @RequestBody @Valid AlterarCursoDto dto) {
+        var curso = cursoRepository.getReferenceById(codigo);
+        curso.alterar(dto);
+        return ResponseEntity.ok(new ListagemCursoDto(curso));
+    }
 
+    @DeleteMapping("{codigo}")
+    @Transactional
+    public ResponseEntity<Void> deletar(@PathVariable("codigo") Integer codigo) {
+        cursoRepository.deleteById(codigo);
+        return ResponseEntity.noContent().build();
+    }
 
 }

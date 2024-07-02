@@ -31,21 +31,13 @@ public class Contato {
     @Column(name = "tp_contato", nullable = false)
     private Tipo tipo;
 
-    @ManyToOne
-    @JoinColumn(name = "cd_aluno", nullable = false)
+    @OneToOne(mappedBy = "contato", cascade = CascadeType.ALL)
     private Aluno aluno;
-
-    public Contato(ListagemContatoDto dto) {
-        this.telefone = dto.telefone();
-        this.email = dto.email();
-        this.tipo = dto.tipo();
-    }
 
     public Contato(CadastroContatoDto dto) {
         this.telefone = dto.telefone();
         this.email = dto.email();
         this.tipo = dto.tipo();
-        this.aluno = new Aluno();
     }
 
     public void alterar(AlterarContatoDto dto) {

@@ -44,8 +44,8 @@ public class Endereco {
     @Column(name = "nr_cep", nullable = false, length = 8)
     private String cep;
 
-    @OneToMany(mappedBy = "endereco", cascade = CascadeType.ALL)
-    private List<Aluno> alunos;
+    @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
+    private Aluno aluno;
 
     public Endereco(CadastroEnderecoDto dto) {
         this.rua = dto.rua();
@@ -56,17 +56,6 @@ public class Endereco {
         this.estado = dto.estado();
         this.cep = dto.cep();
     }
-
-    public Endereco(ListagemEnderecoDto dto) {
-        this.rua = dto.rua();
-        this.numero = dto.numero();
-        this.complemento = dto.complemento();
-        this.bairro = dto.bairro();
-        this.cidade = dto.cidade();
-        this.estado = dto.estado();
-        this.cep = dto.cep();
-    }
-
 
     public void alterar(AlterarEnderecoDto dto) {
         if(rua != null) {

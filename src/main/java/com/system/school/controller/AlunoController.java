@@ -1,11 +1,13 @@
 package com.system.school.controller;
 
 import com.system.school.domain.Aluno;
+import com.system.school.domain.Contato;
 import com.system.school.domain.Curso;
 import com.system.school.domain.Endereco;
 import com.system.school.dto.aluno.CadastroAlunoDto;
 import com.system.school.dto.aluno.ListagemAlunoDto;
 import com.system.school.repository.AlunoRepository;
+import com.system.school.repository.ContatoRepository;
 import com.system.school.repository.CursoRepository;
 import com.system.school.repository.EnderecoRepository;
 import jakarta.validation.Valid;
@@ -27,8 +29,7 @@ public class AlunoController {
     private EnderecoRepository enderecoRepository;
 
     @Autowired
-    private CursoRepository cursoRepository;
-
+    private ContatoRepository contatoRepository;
 
     @GetMapping
     public ResponseEntity<Page<ListagemAlunoDto>> listagem(Pageable pageable) {
@@ -39,28 +40,23 @@ public class AlunoController {
     @PostMapping
     @Transactional
     public ResponseEntity<ListagemAlunoDto> cadastrar(@RequestBody @Valid CadastroAlunoDto dto, UriComponentsBuilder uriBuilder) {
-        Endereco endereco = new Endereco(dto.enderecoId());
-        enderecoRepository.save(endereco);
+        if (dto.contatoId() == null || dto.enderecoId() == null) {
+            throw new IllegalArgumentException("Contato ID and Endereço ID must not be null");
+        }
 
-        Curso curso = new Curso(dto.cursoId());
-        cursoRepository.save(curso);
+        Endereco endereco = enderecoRepository.findById(dto.enderecoId())
+                .orElseThrow(() -> new RuntimeException("Endereço não encontrado"));
+        Contato contato = contatoRepository.findById(dto.contatoId())
+                .orElseThrow(() -> new RuntimeException("Contato não encontrado"));
 
         var aluno = new Aluno(dto);
-        aluno.setCurso(curso);
         aluno.setEndereco(endereco);
+        aluno.setContato(contato);
         alunoRepository.save(aluno);
 
-        var url = uriBuilder.path("aluno/{id}").buildAndExpand(aluno.getCodigo()).toUri();
+        var url = uriBuilder.path("/aluno/{id}").buildAndExpand(aluno.getCodigo()).toUri();
         return ResponseEntity.created(url).body(new ListagemAlunoDto(aluno));
     }
-
-
-
-
-
-
-
-
 
 
 }

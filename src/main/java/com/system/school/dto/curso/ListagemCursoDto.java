@@ -6,9 +6,8 @@ import com.system.school.dto.aluno.ListagemAlunoDto;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public record ListagemCursoDto(Integer codigo, String nome, String descricao, List<ListagemAlunoDto> alunos) {
+public record ListagemCursoDto(Integer codigo, String nome, String descricao) {
     public ListagemCursoDto(Curso curso) {
-        this(curso.getCodigo(), curso.getNome(), curso.getDescricao(),
-                curso.getAlunos() != null ? curso.getAlunos().stream().map(ListagemAlunoDto::new).collect(Collectors.toList()) : List.of());
+        this(curso.getCodigo(), curso.getNome(), curso.getDescricao());
     }
 }

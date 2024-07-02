@@ -35,11 +35,6 @@ public class Curso {
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
     private List<Aluno> alunos;
 
-    public Curso(ListagemCursoDto dto) {
-        this.nome = dto.nome();
-        this.descricao = dto.descricao();
-    }
-
     public Curso(CadastroCursoDto dto) {
         this.nome = dto.nome();
         this.descricao = dto.descricao();

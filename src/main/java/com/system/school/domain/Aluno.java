@@ -2,9 +2,6 @@ package com.system.school.domain;
 
 import com.system.school.dto.aluno.AlterarAlunoDto;
 import com.system.school.dto.aluno.CadastroAlunoDto;
-import com.system.school.dto.aluno.ListagemAlunoDto;
-import com.system.school.dto.curso.AlterarCursoDto;
-import com.system.school.dto.curso.ListagemCursoDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,26 +36,25 @@ public class Aluno {
     @JoinColumn(name = "cd_curso")
     private Curso curso;
 
-    @ManyToOne
-    @JoinColumn(name = "cd_endereco")
+    @OneToOne
+    @JoinColumn(name = "cd_endereco", nullable = false)
     private Endereco endereco;
 
-    @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL)
-    private List<Contato> telefones;
+    @OneToOne
+    @JoinColumn(name = "cd_contato", nullable = false)
+    private Contato contato;
 
     public Aluno(CadastroAlunoDto dto) {
         this.nome = dto.nome();
         this.nascimento = dto.nascimento();
         this.foto = dto.foto();
-        this.endereco = new Endereco(dto.enderecoId());
-        this.curso = new Curso(dto.cursoId());
     }
 
     public void alterar(AlterarAlunoDto dto) {
-        if(nome != null) {
+        if(dto.nome() != null) {
             this.nome = dto.nome();
         }
-        if(foto != null) {
+        if(dto.foto() != null) {
             this.foto = dto.foto();
         }
     }

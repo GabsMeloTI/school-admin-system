@@ -2,6 +2,7 @@ package com.system.school.controller;
 
 import com.system.school.domain.Endereco;
 import com.system.school.dto.curso.ListagemCursoDto;
+import com.system.school.dto.endereco.AlterarEnderecoDto;
 import com.system.school.dto.endereco.CadastroEnderecoDto;
 import com.system.school.dto.endereco.ListagemEnderecoDto;
 import com.system.school.repository.EnderecoRepository;
@@ -35,5 +36,20 @@ public class EnderecoController {
         enderecoRepository.save(endereco);
         var url = uriBuilder.path("endereco/{id}").buildAndExpand(endereco.getCodigo()).toUri();
         return ResponseEntity.created(url).body(new ListagemEnderecoDto(endereco));
+    }
+
+    @PutMapping("{codigo}")
+    @Transactional
+    public ResponseEntity<ListagemEnderecoDto> alterar(@PathVariable("codigo") Integer codigo, @RequestBody @Valid AlterarEnderecoDto dto) {
+        var endereco = enderecoRepository.getReferenceById(codigo);
+        endereco.alterar(dto);
+        return ResponseEntity.ok(new ListagemEnderecoDto(endereco));
+    }
+
+    @DeleteMapping("{codigo}")
+    @Transactional
+    public ResponseEntity<Void> remover(@PathVariable("codigo") Integer codigo) {
+        enderecoRepository.deleteById(codigo);
+        return ResponseEntity.noContent().build();
     }
 }
