@@ -1,5 +1,6 @@
 package com.system.school.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.system.school.dto.curso.AlterarCursoDto;
 import com.system.school.dto.curso.CadastroCursoDto;
 import com.system.school.dto.curso.ListagemCursoDto;
@@ -33,6 +34,7 @@ public class Curso {
     private String descricao;
 
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Aluno> alunos;
 
     public Curso(CadastroCursoDto dto) {

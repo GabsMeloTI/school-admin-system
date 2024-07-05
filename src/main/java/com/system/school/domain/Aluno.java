@@ -1,5 +1,6 @@
 package com.system.school.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.system.school.dto.aluno.AlterarAlunoDto;
 import com.system.school.dto.aluno.CadastroAlunoDto;
 import jakarta.persistence.*;
@@ -34,14 +35,17 @@ public class Aluno {
 
     @ManyToOne
     @JoinColumn(name = "cd_curso")
+    @JsonBackReference
     private Curso curso;
 
     @OneToOne
     @JoinColumn(name = "cd_endereco", nullable = false)
+    @JsonBackReference
     private Endereco endereco;
 
     @OneToOne
     @JoinColumn(name = "cd_contato", nullable = false)
+    @JsonBackReference
     private Contato contato;
 
     public Aluno(CadastroAlunoDto dto) {
@@ -51,9 +55,6 @@ public class Aluno {
     }
 
     public void alterar(AlterarAlunoDto dto) {
-        if(dto.nome() != null) {
-            this.nome = dto.nome();
-        }
         if(dto.foto() != null) {
             this.foto = dto.foto();
         }

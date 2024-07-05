@@ -1,4 +1,5 @@
 package com.system.school.domain;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.system.school.dto.aluno.AlterarAlunoDto;
 import com.system.school.dto.aluno.ListagemAlunoDto;
 import com.system.school.dto.contato.AlterarContatoDto;
@@ -32,6 +33,7 @@ public class Contato {
     private Tipo tipo;
 
     @OneToOne(mappedBy = "contato", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Aluno aluno;
 
     public Contato(CadastroContatoDto dto) {

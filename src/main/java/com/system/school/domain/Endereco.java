@@ -1,5 +1,6 @@
 package com.system.school.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.system.school.dto.endereco.AlterarEnderecoDto;
 import com.system.school.dto.endereco.CadastroEnderecoDto;
 import com.system.school.dto.endereco.ListagemEnderecoDto;
@@ -45,6 +46,7 @@ public class Endereco {
     private String cep;
 
     @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Aluno aluno;
 
     public Endereco(CadastroEnderecoDto dto) {
