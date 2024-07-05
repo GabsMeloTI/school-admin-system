@@ -38,12 +38,12 @@ public class Aluno {
     @JsonBackReference
     private Curso curso;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cd_endereco", nullable = false)
     @JsonBackReference
     private Endereco endereco;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cd_contato", nullable = false)
     @JsonBackReference
     private Contato contato;

@@ -85,7 +85,7 @@ public class AlunoController {
     }
 
 
-    @PutMapping("{codigo}")
+    @PutMapping("/{codigo}")
     @Transactional
     public ResponseEntity<ListagemAlunoDto> alterar(@PathVariable("codigo") Integer codigo, @RequestBody @Valid AlterarAlunoDto dto) {
         var aluno = alunoRepository.getReferenceById(codigo);
@@ -93,5 +93,10 @@ public class AlunoController {
         return ResponseEntity.ok(new ListagemAlunoDto(aluno));
     }
 
-
+    @DeleteMapping("/{codigo}")
+    @Transactional
+    public ResponseEntity<Void> deletar(@PathVariable("codigo") Integer codigo) {
+        alunoRepository.deleteById(codigo);
+        return ResponseEntity.noContent().build();
+    }
 }
